@@ -554,7 +554,7 @@
 
   <div class="win-overlay" id="winOverlay">
     <h2>Bravo, chasseur de monstres !</h2>
-    <p id="winText">Tu as attrapé les 15 monstres du parc. Reviens voir les animateurs pour ta récompense 🍬</p>
+    <p id="winText">Tu as attrapé les 4 monstres du parc. Reviens voir les organisateurs pour ta récompense 🍬</p>
     <button onclick="document.getElementById('winOverlay').classList.remove('show')">Continuer à explorer</button>
   </div>
 
@@ -578,16 +578,12 @@
 
     // Parc de la Solitude : contour relevé sur place.
     const PARK_POLYGON = [
-      [47.890951144976235, 1.8243149523945141],
-      [47.89090438295228, 1.8243511622144508],
-      [47.89086031869876, 1.8243846898255032],
-      [47.8908360383798, 1.8244048063921343],
-      [47.89078657843557, 1.8244396751076286],
-      [47.89075240608286, 1.8243511622144508],
-      [47.8908189522226, 1.8242613082168304],
-      [47.89089179316941, 1.8242264395013363],
-      [47.890917872002, 1.8242116873524732],
-      [47.89093226031781, 1.82425728490350444],
+      [47.88121354997527, 1.824547557577901],
+      [47.881240533119126, 1.8246186361133323],
+      [47.88127111399852, 1.8247098312153944],
+      [47.88120005839807, 1.8247701809152885],
+      [47.88114519261462, 1.824605225068911],
+      
     ];
 
     // Centre moyen du polygone, utilisé pour centrer la carte.
@@ -599,7 +595,7 @@
     // Le radar commence à réagir à 25 m. La caméra est débloquée à 5 m.
     // Évite de descendre à 2 m : la précision GPS d'un téléphone peut varier.
     const RADAR_RADIUS_M = 25;
-    const CAMERA_UNLOCK_RADIUS_M = 5;
+    const CAMERA_UNLOCK_RADIUS_M = 4;
     const MIN_DISTANCE_BETWEEN_MONSTERS_M = 2;
     const MONSTER_TEMPLATES = [
       { name: "Citrouille Grognon", emoji: "🎃" },
