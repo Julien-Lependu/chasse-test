@@ -1,5 +1,0 @@
-VERSION PROPRE - IMAGES + EMOJI DE SECOURS
-
-La citrouille est incluse. Ajoute dans monsters : fantome.png, squelette.png, vampire.png, momie.png, sorciere.png, diablotin.png, zombie.png, araignee.png, chauve-souris.png, loup-garou.png, monstre-gluant.png, oeil-volant.png, clown-maudit.png, sans-visage.png.
-
-Si une image manque, l emoji correspondant apparait automatiquement.
