@@ -1233,13 +1233,13 @@
 
   <div class="permission-blocker" id="blocker">
     <h2>🎃 Chasse aux Monstres</h2>
-    <p>Autorise la géolocalisation pour partir à la recherche des 15 monstres cachés dans le parc !</p>
+    <p>Autorise la géolocalisation pour partir à la recherche des 12 monstres cachés dans le parc !</p>
     <button id="startBtn">C'est parti !</button>
   </div>
 
   <header>
     <h1 id="gameTitle">Chasse aux <span>Monstres</span></h1>
-    <div class="counter">🎃 <b id="caughtCount">0</b>/<span id="totalCount">15</span></div>
+    <div class="counter">🎃 <b id="caughtCount">0</b>/<span id="totalCount">12</span></div>
   </header>
 
   <div id="map"></div>
@@ -1316,7 +1316,7 @@
 
   <div class="win-overlay" id="winOverlay">
     <h2>Bravo, chasseur de monstres !</h2>
-    <p id="winText">Tu as attrapé les 15 monstres du parc. Reviens voir les animateurs pour ta récompense 🍬</p>
+    <p id="winText">Tu as attrapé les 12 monstres du parc. Reviens voir les animateurs pour ta récompense 🍬</p>
     <button id="openPhotoBtn">📸 Faire la photo souvenir</button>
     <button style="margin-top:10px;background:rgba(255,255,255,.13);color:white"
       onclick="document.getElementById('winOverlay').classList.remove('show')">Continuer à explorer</button>
@@ -1327,7 +1327,7 @@
     <canvas id="photoCanvas"></canvas>
     <div class="photo-frame"></div>
     <div class="photo-title">Chasseur de monstres<br><small
-        style="font-family:Nunito;font-size:16px;color:white">Halloween 2026 · 15/15</small></div>
+        style="font-family:Nunito;font-size:16px;color:white">Halloween 2026 · 12/12</small></div>
     <div class="photo-monsters">🎃 👻 🦇 🕷️ 💀 🧛</div>
     <div class="photo-theme-picker" id="photoThemePicker" aria-label="Choisir un décor">
       <button class="photo-theme-btn active" data-theme="pumpkin">🎃 Citrouilles</button>
@@ -1397,10 +1397,8 @@
       { name: "Araignée Géante", image: "monsters/araignee.png", emoji: "🕷️", fact: "Elle tisse des toiles tellement solides que même les fantômes restent coincés dedans." },
       { name: "Chauve-Souris Acrobate", image: "monsters/chauve-souris.png", emoji: "🦇", fact: "Elle adore faire des loopings au-dessus des visiteurs pendant la nuit." },
       { name: "Loup-Garou Timide", image: "monsters/loup-garou.png", emoji: "🐺", fact: "Il rougit dès qu'on le regarde, même pendant la pleine lune." },
-      { name: "Monstre Gluant", image: "monsters/monstre-gluant.png", emoji: "🟢", fact: "Il laisse des traces de bave partout où il passe… les limaces en sont jalouses." },
-      { name: "Œil Volant", image: "monsters/oeil-volant.png", emoji: "👁️", fact: "Il observe tout le monde en silence, mais il est incapable de garder un secret." },
       { name: "Clown Maudit", image: "monsters/clown-maudit.png", emoji: "🤡", fact: "Ses ballons éclatent toujours au pire moment… juste derrière toi." },
-      { name: "Le Sans-Visage", image: "monsters/sans-visage.png", emoji: "🎭", fact: "Personne ne sait à quoi il ressemble réellement. Chaque personne voit un visage différent." }
+      
     ]; function resetGame() {
       if (!confirm("Réinitialiser toute la partie ? Tous les monstres capturés seront perdus.")) return;
 
@@ -2171,7 +2169,7 @@
       ctx.fillText('Chasseur de monstres', outputWidth / 2, 78 * scale);
       ctx.fillStyle = '#ffffff';
       ctx.font = `800 ${Math.round(21 * scale)}px Nunito, sans-serif`;
-      ctx.fillText('Halloween 2026 · 15/15 monstres', outputWidth / 2, 112 * scale);
+      ctx.fillText('Halloween 2026 · 12/12 monstres', outputWidth / 2, 112 * scale);
       ctx.font = `${Math.round(45 * scale)}px sans-serif`;
       ctx.fillText('🎃  👻  🦇  🕷️  💀  🧛', outputWidth / 2, outputHeight - 54 * scale);
 
@@ -2269,7 +2267,7 @@
       if (!photoBlob) return;
       const file = new File([photoBlob], 'photo-chasse-aux-monstres.jpg', { type: 'image/jpeg' });
       try {
-        if (navigator.canShare?.({ files: [file] })) await navigator.share({ title: 'Chasse aux Monstres', text: 'J’ai capturé les 15 monstres !', files: [file] });
+        if (navigator.canShare?.({ files: [file] })) await navigator.share({ title: 'Chasse aux Monstres', text: 'J’ai capturé les 12 monstres !', files: [file] });
         else {
           const link = document.createElement('a'); link.href = URL.createObjectURL(photoBlob); link.download = file.name; link.click();
           setTimeout(() => URL.revokeObjectURL(link.href), 1000);
