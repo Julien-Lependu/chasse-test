@@ -1,0 +1,19 @@
+Le jeu utilise maintenant des images PNG dans le dossier monsters.
+
+La citrouille est déjà incluse. Ajoute les fichiers suivants :
+fantome.png
+squelette.png
+vampire.png
+momie.png
+sorciere.png
+diablotin.png
+zombie.png
+araignee.png
+chauve-souris.png
+loup-garou.png
+monstre-gluant.png
+oeil-volant.png
+clown-maudit.png
+sans-visage.png
+
+En cas d'image manquante, l'emoji de secours s'affiche automatiquement.

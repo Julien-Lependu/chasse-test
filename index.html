@@ -1205,6 +1205,39 @@
       color: #fff;
       border: 1px solid rgba(255, 255, 255, .25) !important;
     }
+  
+    .monster-marker img,
+    .bag-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .ar-monster {
+      width: clamp(120px, 38vw, 220px);
+      height: clamp(120px, 38vw, 220px);
+      font-size: 0;
+    }
+
+    .ar-monster img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .celebration-emoji,
+    .monster-card-emoji {
+      width: clamp(110px, 32vw, 165px);
+      height: clamp(110px, 32vw, 165px);
+      object-fit: contain;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
   </style>
 </head>
 
@@ -1274,7 +1307,7 @@
   <div class="capture-celebration" id="captureCelebration" aria-hidden="true">
     <div class="capture-celebration-card">
       <div class="celebration-kicker">🎉 Bravo ! 🎉</div>
-      <span class="celebration-emoji" id="celebrationEmoji">👻</span>
+      <img class="celebration-emoji" id="celebrationEmoji" src="" alt="">
       <div class="celebration-title">Monstre capturé !</div>
       <div class="celebration-name" id="celebrationName"></div>
       <div class="celebration-progress" id="celebrationProgress"></div>
@@ -1285,7 +1318,7 @@
   <div class="monster-card-overlay" id="monsterCardOverlay" aria-hidden="true">
     <div class="monster-card">
       <button class="monster-card-close" id="monsterCardCloseBtn" aria-label="Fermer">✕</button>
-      <span class="monster-card-emoji" id="monsterCardEmoji">👻</span>
+      <img class="monster-card-emoji" id="monsterCardEmoji" src="" alt="">
       <div class="monster-card-name" id="monsterCardName"></div>
       <div class="monster-card-fact" id="monsterCardFact"></div>
     </div>
@@ -1364,81 +1397,21 @@
     // Ajoute une petite anecdote/fait rigolo par monstre avec "fact" —
     // elle s'affiche à la capture et reste consultable dans le carnet du chasseur.
     const MONSTER_TEMPLATES = [
-      {
-        name: "Citrouille Grognon",
-        emoji: "🎃",
-        fact: "Elle boude tous les ans parce qu'on la découpe juste avant la fête. Sa spécialité : faire peur avec un sourire à moitié édenté."
-      },
-      {
-        name: "Fantôme Farceur",
-        emoji: "👻",
-        fact: "Il adore se cacher derrière les arbres pour surprendre les passants, puis s'excuse toujours en flottant très vite ailleurs."
-      },
-      {
-        name: "Squelette Rigolo",
-        emoji: "💀",
-        fact: "Il perd un os presque tous les jours. Heureusement, il sait toujours où le retrouver."
-      },
-      {
-        name: "Vampire Gourmand",
-        emoji: "🧛",
-        fact: "Il préfère largement le jus de tomate aux histoires de vampires… mais il ne veut pas que ça se sache."
-      },
-      {
-        name: "Momie Pressée",
-        emoji: "🧻",
-        fact: "Elle passe son temps à remettre ses bandelettes qui se déroulent dès qu'elle court."
-      },
-      {
-        name: "Sorcière Maladroite",
-        emoji: "🧙",
-        fact: "Elle rate une potion sur deux… mais ses explosions sont toujours spectaculaires."
-      },
-      {
-        name: "Diablotin Malicieux",
-        emoji: "😈",
-        fact: "Son plus grand plaisir est de cacher les bonbons des autres monstres."
-      },
-      {
-        name: "Zombie Somnolent",
-        emoji: "🧟",
-        fact: "Il avance très lentement car il s'endort souvent en marchant."
-      },
-      {
-        name: "Araignée Géante",
-        emoji: "🕷️",
-        fact: "Elle tisse des toiles tellement solides que même les fantômes restent coincés dedans."
-      },
-      {
-        name: "Chauve-Souris Acrobate",
-        emoji: "🦇",
-        fact: "Elle adore faire des loopings au-dessus des visiteurs pendant la nuit."
-      },
-      {
-        name: "Loup-Garou Timide",
-        emoji: "🐺",
-        fact: "Il rougit dès qu'on le regarde, même pendant la pleine lune."
-      },
-      {
-        name: "Monstre Gluant",
-        emoji: "🟢",
-        fact: "Il laisse des traces de bave partout où il passe… les limaces en sont jalouses."
-      },
-      {
-        name: "Œil Volant",
-        emoji: "👁️",
-        fact: "Il observe tout le monde en silence, mais il est incapable de garder un secret."
-      },
-      {
-        name: "Clown Maudit",
-        emoji: "🤡",
-        fact: "Ses ballons éclatent toujours au pire moment… juste derrière toi."
-      },
-      {
-        name: "Le Sans-Visage",
-        emoji: "🎭",
-        fact: "Personne ne sait à quoi il ressemble réellement. Chaque personne voit un visage différent."
-      }
+      { name: "Citrouille Grognon", image: "monsters/citrouille.png", fallbackEmoji: "🎃", fact: "Elle boude tous les ans parce qu'on la découpe juste avant la fête. Sa spécialité : faire peur avec un sourire à moitié édenté." },
+      { name: "Fantôme Farceur", image: "monsters/fantome.png", fallbackEmoji: "👻", fact: "Il adore se cacher derrière les arbres pour surprendre les passants, puis s'excuse toujours en flottant très vite ailleurs." },
+      { name: "Squelette Rigolo", image: "monsters/squelette.png", fallbackEmoji: "💀", fact: "Il perd un os presque tous les jours. Heureusement, il sait toujours où le retrouver." },
+      { name: "Vampire Gourmand", image: "monsters/vampire.png", fallbackEmoji: "🧛", fact: "Il préfère largement le jus de tomate aux histoires de vampires… mais il ne veut pas que ça se sache." },
+      { name: "Momie Pressée", image: "monsters/momie.png", fallbackEmoji: "🧻", fact: "Elle passe son temps à remettre ses bandelettes qui se déroulent dès qu'elle court." },
+      { name: "Sorcière Maladroite", image: "monsters/sorciere.png", fallbackEmoji: "🧙", fact: "Elle rate une potion sur deux… mais ses explosions sont toujours spectaculaires." },
+      { name: "Diablotin Malicieux", image: "monsters/diablotin.png", fallbackEmoji: "😈", fact: "Son plus grand plaisir est de cacher les bonbons des autres monstres." },
+      { name: "Zombie Somnolent", image: "monsters/zombie.png", fallbackEmoji: "🧟", fact: "Il avance très lentement car il s'endort souvent en marchant." },
+      { name: "Araignée Géante", image: "monsters/araignee.png", fallbackEmoji: "🕷️", fact: "Elle tisse des toiles tellement solides que même les fantômes restent coincés dedans." },
+      { name: "Chauve-Souris Acrobate", image: "monsters/chauve-souris.png", fallbackEmoji: "🦇", fact: "Elle adore faire des loopings au-dessus des visiteurs pendant la nuit." },
+      { name: "Loup-Garou Timide", image: "monsters/loup-garou.png", fallbackEmoji: "🐺", fact: "Il rougit dès qu'on le regarde, même pendant la pleine lune." },
+      { name: "Monstre Gluant", image: "monsters/monstre-gluant.png", fallbackEmoji: "🟢", fact: "Il laisse des traces de bave partout où il passe… les limaces en sont jalouses." },
+      { name: "Œil Volant", image: "monsters/oeil-volant.png", fallbackEmoji: "👁️", fact: "Il observe tout le monde en silence, mais il est incapable de garder un secret." },
+      { name: "Clown Maudit", image: "monsters/clown-maudit.png", fallbackEmoji: "🤡", fact: "Ses ballons éclatent toujours au pire moment… juste derrière toi." },
+      { name: "Le Sans-Visage", image: "monsters/sans-visage.png", fallbackEmoji: "🎭", fact: "Personne ne sait à quoi il ressemble réellement. Chaque personne voit un visage différent." }
     ]; function resetGame() {
       if (!confirm("Réinitialiser toute la partie ? Tous les monstres capturés seront perdus.")) return;
 
@@ -1524,7 +1497,8 @@
     const MONSTERS = MONSTER_TEMPLATES.map((monster, index) => ({
       id: "m" + index,
       name: monster.name,
-      emoji: monster.emoji,
+      image: monster.image,
+      fallbackEmoji: monster.fallbackEmoji || '👻',
       fact: monster.fact || '',
       lat: monsterPositions[index].lat,
       lng: monsterPositions[index].lng
@@ -1541,6 +1515,11 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
     }
     let caught = loadCaught();
+
+    function monsterImageHTML(monster, className = '') {
+      return `<img class="${className}" src="${monster.image}" alt="${monster.name}"
+        onerror="this.outerHTML='<span>${monster.fallbackEmoji || '👻'}</span>'">`;
+    }
 
     function haversine(lat1, lng1, lat2, lng2) {
       const R = 6371000;
@@ -1577,8 +1556,8 @@
       const isCaught = caught.has(m.id);
       const icon = L.divIcon({
         className: '',
-        html: `<div class="monster-marker ${isCaught ? 'caught' : ''}" style="${isCaught ? '' : 'opacity:0'}">${m.emoji}</div>`,
-        iconSize: [42, 42]
+        html: `<div class="monster-marker ${isCaught ? 'caught' : ''}" style="${isCaught ? '' : 'opacity:0'}">${monsterImageHTML(m)}</div>`,
+        iconSize: [54, 54]
       });
       monsterMarkers[m.id] = L.marker([m.lat, m.lng], { icon }).addTo(map).bindPopup(m.name);
     });
@@ -1590,7 +1569,8 @@
       MONSTERS.forEach(m => {
         const slot = document.createElement('div');
         slot.className = 'bag-slot' + (caught.has(m.id) ? ' filled' : '');
-        slot.textContent = caught.has(m.id) ? m.emoji : '❔';
+        if (caught.has(m.id)) slot.innerHTML = monsterImageHTML(m);
+        else slot.innerHTML = '<span class="bag-placeholder">❔</span>';
         if (caught.has(m.id)) {
           slot.setAttribute('role', 'button');
           slot.setAttribute('aria-label', `Revoir la fiche de ${m.name}`);
@@ -1612,7 +1592,8 @@
     const monsterCardFact = document.getElementById('monsterCardFact');
 
     function openMonsterCard(monster) {
-      monsterCardEmoji.textContent = monster.emoji;
+      monsterCardEmoji.src = monster.image;
+      monsterCardEmoji.alt = monster.name;
       monsterCardName.textContent = monster.name;
       monsterCardFact.textContent = monster.fact || 'Ce monstre garde ses secrets…';
       monsterCardOverlay.classList.add('show');
@@ -1652,7 +1633,8 @@
     function showCaptureCelebration(monster) {
       clearTimeout(celebrationTimer);
       captureCelebration.querySelectorAll('.celebration-particle').forEach(p => p.remove());
-      celebrationEmoji.textContent = monster.emoji;
+      celebrationEmoji.src = monster.image;
+      celebrationEmoji.alt = monster.name;
       celebrationName.textContent = `${monster.name} rejoint ton sac !`;
       celebrationProgress.textContent = `${caught.size} monstre${caught.size > 1 ? 's' : ''} sur ${MONSTERS.length}`;
       celebrationFact.textContent = monster.fact || '';
@@ -1907,7 +1889,7 @@
         return;
       }
 
-      arMonster.textContent = nearbyMonster.emoji;
+      arMonster.innerHTML = monsterImageHTML(nearbyMonster);
       arMonster.dataset.monsterId = nearbyMonster.id;
       arMonster.style.visibility = 'hidden';
       cameraInstruction.textContent = `${nearbyMonster.name} se cache près de toi…`;
@@ -1979,7 +1961,7 @@
       }
 
       renderBag();
-      showToast(`${monster.emoji} ${monster.name} attrapé !`);
+      showToast(`${monster.name} attrapé !`);
       showCaptureCelebration(monster);
 
       setTimeout(() => {
