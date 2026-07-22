@@ -877,7 +877,7 @@
     .capture-celebration {
       position: fixed;
       inset: 0;
-      z-index: 260;
+      z-index: 900;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -997,6 +997,14 @@
 
     .celebration-fact:empty {
       display: none;
+    }
+
+
+    .celebration-reading-hint {
+      margin-top: 12px;
+      color: #bfb1d5;
+      font-size: 12px;
+      font-weight: 800;
     }
 
     /* ---- Carnet du chasseur (fiche consultable) ---- */
@@ -1208,7 +1216,8 @@
   
     .monster-visual{display:inline-flex;align-items:center;justify-content:center;width:100%;height:100%;line-height:1}
     .monster-visual img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none;-webkit-user-drag:none}
-    .monster-fallback{display:inline-flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:inherit;line-height:1}
+    .monster-visual img[hidden]{display:none!important}
+    .monster-fallback{display:none;align-items:center;justify-content:center;width:100%;height:100%;font-size:inherit;line-height:1}.monster-fallback:not([hidden]){display:inline-flex}
     .monster-marker{width:56px;height:56px;font-size:30px;overflow:visible}
     .marker-visual{width:56px;height:56px}
     .bag-slot{overflow:hidden}.bag-visual{width:88%;height:88%;font-size:21px}
@@ -1291,6 +1300,7 @@
       <div class="celebration-name" id="celebrationName"></div>
       <div class="celebration-progress" id="celebrationProgress"></div>
       <div class="celebration-fact" id="celebrationFact"></div>
+      <div class="celebration-reading-hint">Touchez l’écran lorsque vous avez fini de lire</div>
     </div>
   </div>
 
@@ -1503,6 +1513,7 @@
       img.alt = monster.name;
       const fallback = document.createElement('span');
       fallback.className = 'monster-fallback';
+      fallback.hidden = true;
       fallback.textContent = monster.emoji || '👻';
       img.addEventListener('load', () => { img.hidden = false; fallback.hidden = true; });
       img.addEventListener('error', () => { img.hidden = true; fallback.hidden = false; });
@@ -1511,7 +1522,7 @@
     }
 
     function monsterVisualHTML(monster, className = '') {
-      return `<span class="monster-visual ${className}"><img src="${monster.image}" alt="${monster.name}" onload="this.hidden=false;this.nextElementSibling.hidden=true" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="monster-fallback">${monster.emoji || '👻'}</span></span>`;
+      return `<span class="monster-visual ${className}"><img src="${monster.image}" alt="${monster.name}" onload="this.hidden=false;this.nextElementSibling.hidden=true" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="monster-fallback" hidden>${monster.emoji || '👻'}</span></span>`;
     }
 
     function setMonsterVisual(container, monster, className = '') {
@@ -1653,7 +1664,7 @@
       captureCelebration.classList.add('show');
       captureCelebration.setAttribute('aria-hidden', 'false');
 
-      const displayDuration = monster.fact ? 4400 : 2600;
+      const displayDuration = monster.fact ? 12000 : 8000;
       celebrationTimer = setTimeout(() => {
         captureCelebration.classList.remove('show');
         captureCelebration.setAttribute('aria-hidden', 'true');
@@ -1966,7 +1977,7 @@
         nearbyMonster = null;
         nearbyDistance = Infinity;
         lastVibratedMonsterId = null;
-      }, 2700);
+      }, 900);
     }
 
     captureBtn.addEventListener('click', openCameraHunt);
