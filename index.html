@@ -1341,12 +1341,13 @@
 
     // Parc de la Solitude : contour relevé sur place.
     const PARK_POLYGON = [
-      [47.88121354997527, 1.824547557577901],
-      [47.881240533119126, 1.8246186361133323],
-      [47.88127111399852, 1.8247098312153944],
-      [47.88120005839807, 1.8247701809152885],
-      [47.88114519261462, 1.824605225068911],
+      [47.909839603717536, 1.8552971499904412],
+      [47.909803646055316, 1.8552971499904412],
+      [47.9098144333566, 1.8551844972086833],
+      [47.909843199482395, 1.8552005904632203],
+
     ];
+
 
     // Centre moyen du polygone, utilisé pour centrer la carte.
     const CENTER = {
@@ -1354,20 +1355,91 @@
       lng: PARK_POLYGON.reduce((sum, point) => sum + point[1], 0) / PARK_POLYGON.length
     };
 
-    // Le radar commence à réagir à 25 m. La caméra est débloquée à 5 m.
+    // Le radar commence à réagir à 25 m. La caméra est débloquée à 4 m.
     // Évite de descendre à 2 m : la précision GPS d'un téléphone peut varier.
     const RADAR_RADIUS_M = 25;
-    const CAMERA_UNLOCK_RADIUS_M = 5;
+    const CAMERA_UNLOCK_RADIUS_M = 50;
     const MIN_DISTANCE_BETWEEN_MONSTERS_M = 1; // Valeur basse pour le petit polygone de test
 
     // Ajoute une petite anecdote/fait rigolo par monstre avec "fact" —
     // elle s'affiche à la capture et reste consultable dans le carnet du chasseur.
     const MONSTER_TEMPLATES = [
-      { name: "Citrouille Grognon", emoji: "🎃", fact: "Elle boude tous les ans parce qu'on la découpe juste avant la fête. Sa spécialité : faire peur avec un sourire à moitié édenté." },
-      { name: "Fantôme Farceur", emoji: "👻", fact: "Il adore se cacher derrière les arbres pour surprendre les passants, puis s'excuse toujours en flottant très vite ailleurs." },
-
-    ];
-    function resetGame() {
+      {
+        name: "Citrouille Grognon",
+        emoji: "🎃",
+        fact: "Elle boude tous les ans parce qu'on la découpe juste avant la fête. Sa spécialité : faire peur avec un sourire à moitié édenté."
+      },
+      {
+        name: "Fantôme Farceur",
+        emoji: "👻",
+        fact: "Il adore se cacher derrière les arbres pour surprendre les passants, puis s'excuse toujours en flottant très vite ailleurs."
+      },
+      {
+        name: "Squelette Rigolo",
+        emoji: "💀",
+        fact: "Il perd un os presque tous les jours. Heureusement, il sait toujours où le retrouver."
+      },
+      {
+        name: "Vampire Gourmand",
+        emoji: "🧛",
+        fact: "Il préfère largement le jus de tomate aux histoires de vampires… mais il ne veut pas que ça se sache."
+      },
+      {
+        name: "Momie Pressée",
+        emoji: "🧻",
+        fact: "Elle passe son temps à remettre ses bandelettes qui se déroulent dès qu'elle court."
+      },
+      {
+        name: "Sorcière Maladroite",
+        emoji: "🧙",
+        fact: "Elle rate une potion sur deux… mais ses explosions sont toujours spectaculaires."
+      },
+      {
+        name: "Diablotin Malicieux",
+        emoji: "😈",
+        fact: "Son plus grand plaisir est de cacher les bonbons des autres monstres."
+      },
+      {
+        name: "Zombie Somnolent",
+        emoji: "🧟",
+        fact: "Il avance très lentement car il s'endort souvent en marchant."
+      },
+      {
+        name: "Araignée Géante",
+        emoji: "🕷️",
+        fact: "Elle tisse des toiles tellement solides que même les fantômes restent coincés dedans."
+      },
+      {
+        name: "Chauve-Souris Acrobate",
+        emoji: "🦇",
+        fact: "Elle adore faire des loopings au-dessus des visiteurs pendant la nuit."
+      },
+      {
+        name: "Loup-Garou Timide",
+        emoji: "🐺",
+        fact: "Il rougit dès qu'on le regarde, même pendant la pleine lune."
+      },
+      {
+        name: "Monstre Gluant",
+        emoji: "🟢",
+        fact: "Il laisse des traces de bave partout où il passe… les limaces en sont jalouses."
+      },
+      {
+        name: "Œil Volant",
+        emoji: "👁️",
+        fact: "Il observe tout le monde en silence, mais il est incapable de garder un secret."
+      },
+      {
+        name: "Clown Maudit",
+        emoji: "🤡",
+        fact: "Ses ballons éclatent toujours au pire moment… juste derrière toi."
+      },
+      {
+        name: "Le Sans-Visage",
+        emoji: "🎭",
+        fact: "Personne ne sait à quoi il ressemble réellement. Chaque personne voit un visage différent."
+      }
+    ]; function resetGame() {
       if (!confirm("Réinitialiser toute la partie ? Tous les monstres capturés seront perdus.")) return;
 
       localStorage.removeItem("halloween_hunt_caught_v1");
